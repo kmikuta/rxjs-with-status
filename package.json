@@ -1,0 +1,47 @@
+{
+  "name": "rxjs-with-status",
+  "version": "0.0.1",
+  "description": "Utility for creating observables with status",
+  "main": "dist/index.js",
+  "sideEffects": false,
+  "engines": {
+    "node": "v20.6.1",
+    "npm": "9.8.1"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc --project tsconfig.json",
+    "test": "ts-mocha ./lib/**/*.spec.ts",
+    "format:fix": "prettier ./lib --write",
+    "format:check": "prettier ./lib --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmikuta/rxjs-with-status.git"
+  },
+  "keywords": [
+    "rxjs",
+    "observable",
+    "util",
+    "status"
+  ],
+  "author": "Krzysztof Mikuta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kmikuta/rxjs-with-status/issues"
+  },
+  "homepage": "https://github.com/kmikuta/rxjs-with-status#readme",
+  "peerDependencies": {
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.9",
+    "@types/mocha": "^10.0.3",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.3",
+    "rxjs": "^7.8.1",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.2.2"
+  }
+}
