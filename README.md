@@ -27,3 +27,16 @@ withStatus(source$).subscribe((event) => {
   renderError(event.error);
 });
 ```
+
+# Development
+
+## Node & NPM
+
+- node 18+
+- npm 9+
+
+## Commands
+
+- `npm run build` - builds the bundle
+- `npm test` - runs unit tests
+- `npm format` - runs formater

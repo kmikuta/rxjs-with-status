@@ -4,15 +4,11 @@
   "description": "Utility for creating observables with status",
   "main": "dist/index.js",
   "sideEffects": false,
-  "engines": {
-    "node": "v20.6.1",
-    "npm": "9.8.1"
-  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc --project tsconfig.json",
     "test": "ts-mocha ./lib/**/*.spec.ts",
-    "format:fix": "prettier ./lib --write",
+    "format": "prettier ./lib --write",
     "format:check": "prettier ./lib --check"
   },
   "repository": {
