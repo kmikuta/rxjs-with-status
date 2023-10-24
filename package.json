@@ -1,6 +1,6 @@
 {
   "name": "rxjs-with-status",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utility for creating observables with status",
   "main": "dist/index.js",
   "sideEffects": false,
