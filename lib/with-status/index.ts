@@ -23,19 +23,17 @@ export type EventWithStatus<ResponseType> =
 export function withStatus<ResponseType>(source$: Observable<ResponseType>) {
   return source$.pipe(
     map((response) => {
-      const successResult: EventWithStatus<ResponseType> = {
+      return {
         status: EventStatus.SUCCESS,
         response,
-      };
-      return successResult;
+      } as const;
     }),
     catchError((error) => {
-      const errorResult: EventWithStatus<ResponseType> = {
+      return of({
         status: EventStatus.ERROR,
         error,
-      };
-      return of(errorResult);
+      } as const);
     }),
-    startWith({ status: EventStatus.LOADING }),
+    startWith({ status: EventStatus.LOADING } as const),
   );
 }

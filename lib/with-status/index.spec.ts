@@ -1,6 +1,8 @@
 import { expect } from "chai";
 import { TestScheduler } from "rxjs/testing";
-import { EventStatus, withStatus } from "./index";
+import { EventStatus, EventWithStatus, withStatus } from "./index";
+import { filter, map } from "rxjs/operators";
+import { of } from "rxjs";
 
 const comparator = (actual, expected) => {
   expect(actual).to.deep.equal(expected);
@@ -50,5 +52,29 @@ describe("withStatus function", () => {
           e: { status: EventStatus.ERROR, error: errorMessage },
         });
       }));
+  });
+
+  describe("when explicit typing used", () => {
+    const testScheduler = new TestScheduler(comparator);
+
+    it("should not fail on types", () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        // given
+        const source$ = cold<number>("--r|", { r: 1 });
+        const expectedEmission = "--m|";
+
+        // when
+        const result$ = withStatus<number>(source$).pipe(
+          filter((response) => response.status !== EventStatus.LOADING),
+          map((response: EventWithStatus<number>) => response.status),
+        );
+
+        // then
+        expectObservable(result$).toBe(expectedEmission, {
+          l: EventStatus.LOADING,
+          m: EventStatus.SUCCESS,
+        });
+      });
+    });
   });
 });
