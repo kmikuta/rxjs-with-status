@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
 
-import { EventWithStatus, withStatus as withStatusFn } from "../with-status";
+import { Resource, withStatus as withStatusFn } from "../";
 
 export function withStatus<ResponseType>(): (
   source$: Observable<ResponseType>,
-) => Observable<EventWithStatus<ResponseType>> {
+) => Observable<Resource<ResponseType>> {
   return withStatusFn;
 }
