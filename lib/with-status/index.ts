@@ -1,10 +1,4 @@
-import {
-  catchError,
-  map,
-  Observable,
-  of,
-  startWith,
-} from 'rxjs';
+import { catchError, map, Observable, of, startWith } from "rxjs";
 
 export enum Status {
   Idle,
@@ -57,11 +51,11 @@ export type Resource<TValue = any, TError = Error> = (
   | Loading
   | Failure<TError>
   | Success<TValue>
-  ) &
+) &
   Guards;
 
 export function loading(): Loading & Guards {
-  return addGuards({status: Status.Loading});
+  return addGuards({ status: Status.Loading });
 }
 
 export function failure<TError>(error: TError): Failure<TError> & Guards {
@@ -84,10 +78,12 @@ export function idle(): Idle {
   };
 }
 
-export function withStatus<TValue = unknown, TError = Error>(source$: Observable<TValue>): Observable<Resource<TValue, TError>> {
+export function withStatus<TValue = unknown, TError = Error>(
+  source$: Observable<TValue>,
+): Observable<Resource<TValue, TError>> {
   return source$.pipe(
     map((data: TValue) => success<TValue>(data)),
     catchError((error: TError) => of(failure<TError>(error))),
-    startWith(loading())
-  )
+    startWith(loading()),
+  );
 }
