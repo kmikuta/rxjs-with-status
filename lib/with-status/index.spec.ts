@@ -71,22 +71,24 @@ describe("Resource utilities", () => {
       const mockError = new Error("Failed to fetch");
 
       // Success case
-      const success$ = cold("-s|", { s: mockData }).pipe(withStatus());
+      const success$ = cold("-s|", { s: mockData });
+      const withSuccessStatus$ = withStatus(success$);
       const successExpected = "ls|";
       const successValues = {
         l: loading(),
         s: success(mockData),
       };
-      expectObservable(success$).toBe(successExpected, successValues);
+      expectObservable(withSuccessStatus$).toBe(successExpected, successValues);
 
       // Failure case
-      const failure$ = cold("(-#)", {}, mockError).pipe(withStatus());
+      const failure$ = cold("(-#)", {}, mockError);
+      const withFailureStatus$ = withStatus(failure$);
       const failureExpected = "(le|)";
       const failureValues = {
         l: loading(),
         e: failure(mockError),
       };
-      expectObservable(failure$).toBe(
+      expectObservable(withFailureStatus$).toBe(
         failureExpected,
         failureValues,
         mockError,
@@ -98,14 +100,15 @@ describe("Resource utilities", () => {
     testScheduler.run(({ cold, expectObservable }) => {
       const mockData = { id: 1, name: "Test" };
 
-      const source$ = cold("-s|", { s: mockData }).pipe(withStatus());
+      const source$ = cold("-s|", { s: mockData });
+      const withStatus$ = withStatus(source$);
       const expected = "ls|";
       const values = {
         l: loading(),
         s: success(mockData),
       };
 
-      expectObservable(source$).toBe(expected, values);
+      expectObservable(withStatus$).toBe(expected, values);
     });
   });
 });
